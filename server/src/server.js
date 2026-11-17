@@ -111,11 +111,19 @@ app.use((err, req, res, next) => {
 // START SERVER
 // ================================
 
-app.listen(PORT, () => {
-  console.log("----------------------------------");
-  console.log("       SKYTRACK API SERVER");
-  console.log("----------------------------------");
-  console.log(`Server running: http://localhost:${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
-  console.log("----------------------------------");
-});
+
+// Export Express app for Vercel
+export default app;
+
+// Start local server during development only
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log("----------------------------------");
+    console.log("       SKYTRACK API SERVER");
+    console.log("----------------------------------");
+    console.log(`Server running: http://localhost:${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+    console.log("----------------------------------");
+  });
+}
+
